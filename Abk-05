@@ -1,0 +1,78 @@
+accounts ={}
+def create_account(account_id):
+    accounts[account_id] = {"balance" : 0, "history" : []}
+
+def deposit(account_id,amount):
+    accounts[account_id]["balance"]+= amount
+    accounts[account_id]["history"].append(f"Deposited $ {amount}")
+    print(f"Deposited $ :{amount} to Account Id={account_id}")
+
+def withdraw(account_id,amount):
+    if accounts[account_id]["balance"] >= amount:
+        accounts[account_id]["balance"]-= amount
+        accounts[account_id]["history"].append(f"Withdrew ${amount}")
+        print(f"Withdrew $ {amount} from Account Id = {account_id}")
+    else:
+        print("Insufficent Balance!")
+
+def balance(account_id):
+    print(f"balance of {account_id} :${accounts[account_id]["balance"]}")
+
+def  history(account_id):
+    print(f"Transaction history of {[account_id]}")
+    for transaction in accounts[account_id]["history"]:
+        print("=", transaction)
+
+
+while True:
+
+    print("\nWELCOME TO OUR BANK!")
+    print("1. Create Account")
+    print("2. Deposit")
+    print("3. Withdraw")
+    print("4. Balance")
+    print("5. History")
+    print("6. Exit")
+
+    choice = (input("Enter your choice:= "))
+
+    if choice =="1":
+        account_id = int(input("Enter number to generate Account ID:= "))
+        create_account(account_id)
+        print(f"Your OUR BANK Account id Generated! = {account_id}")
+
+    elif choice =="2":
+        account_id = int(input("Enter your Account Id to Deposit:= "))
+        amount = float(input("Enter your amount to deposit:= "))
+        if account_id in accounts:
+            deposit(account_id,amount)
+        else:
+            print("Account Not found!")
+
+    elif choice =="3":
+        account_id = int(input("Enter your Account Id to Withdraw: "))
+        amount = float(input("Enter Your amount to withdraw:= "))
+        if account_id in accounts:
+            withdraw(account_id,amount)
+        else:
+            print("Account Not Found!")
+
+    elif choice =="4":
+        account_id = int(input("Enter your Account Id to veiw balance:= "))
+        if account_id in accounts:
+           balance(account_id) 
+        else:
+            print("Account Not Found!")
+
+    elif choice == "5":
+        account_id = int(input("Enter your Account Id to view history:= "))
+        if account_id in accounts:
+           history(account_id) 
+        else:
+            print("Account Not found!")
+
+    elif choice == "6":
+        print("THANK YOU FOR USING OUR BANK")
+        break
+    else:
+        print("PLEASE ENTER A VALID NUMBER.\nBETWEEN 1 TO 6.")
